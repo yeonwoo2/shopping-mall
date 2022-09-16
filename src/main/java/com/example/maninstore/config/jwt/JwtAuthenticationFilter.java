@@ -64,7 +64,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("===================successfulAuthentication=============");
         PrincipalDetails principalDetails =(PrincipalDetails) authResult.getPrincipal();
 
-
         //HMAC512 암호방식
         String jwtToken = JWT.create()
                 .withSubject("cos")
@@ -74,5 +73,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
+        System.out.println("jwtToken ===" + jwtToken);
     }
 }

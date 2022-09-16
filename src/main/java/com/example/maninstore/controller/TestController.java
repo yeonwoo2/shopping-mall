@@ -3,6 +3,9 @@ package com.example.maninstore.controller;
 import com.example.maninstore.dto.JoinRequestDto;
 import com.example.maninstore.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,18 +48,22 @@ public class TestController {
     //user, manager, admin 접근가능
     @GetMapping("/user")
     public String user(){
-        return "user";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+
+        String username = ((UserDetails) principal).getUsername();
+        return "user====" + username;
     }
 
-    //manager, admin 접근가능
-    @GetMapping("/manager")
-    public String manager(){
-        return "manager";
-    }
-
-    //admin 접근가능
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
+//    //manager, admin 접근가능
+//    @GetMapping("/manager")
+//    public String manager(){
+//        return "manager";
+//    }
+//
+//    //admin 접근가능
+//    @GetMapping("/admin")
+//    public String admin(){
+//        return "admin";
+//    }
 }

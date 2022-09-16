@@ -1,22 +1,19 @@
 package com.example.maninstore.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.maninstore.domain.enums.Authority;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) //기본생성자 protected -> 무분별한 객체 생성 체크 기본생성자 막기
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,20 +21,27 @@ public class User {
 
     private String password;
 
-    private String roles; //USER, ADMIN
+    private String name;
 
-    public List<String> getRoleList(){
-        if(this.roles.length() > 0){
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
+    private String phone;
 
-    public static User createUser(String username, String password, String roles){
+    @Enumerated(EnumType.STRING)
+    private Authority auth; //USER, ADMIN
+
+    @CreatedDate
+    private LocalDateTime createDate;
+
+    @LastModifiedDate
+    private LocalDateTime updateDate;
+
+    public static User createUser(String username, String password, String name, String phone, Authority auth){
         User user = new User();
         user.username = username;
         user.password = password;
-        user.roles = roles;
+        user.name = name;
+        user.phone = phone;
+        user.auth = auth;
         return user;
     }
+
 }

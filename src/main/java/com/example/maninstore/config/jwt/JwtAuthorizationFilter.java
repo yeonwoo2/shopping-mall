@@ -50,7 +50,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         //서명이 정상적으로 됨
         if(username != null){
-            System.out.println("username=============== ok");
+            System.out.println("username=============== ok" + username);
             User userEntity = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("no search user"));
             PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
 
