@@ -1,6 +1,7 @@
 package com.example.maninstore.controller;
 
 import com.example.maninstore.dto.ResponseDto;
+import com.example.maninstore.dto.product.ProductDetailDto;
 import com.example.maninstore.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,11 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping("/api/product")
-    public ResponseDto<String> productDetail(@RequestParam Long id){
+    @GetMapping("/product")
+    public ResponseDto<ProductDetailDto> productDetail(@RequestParam Long id){
 
-        return new ResponseDto<String>(HttpStatus.OK.value(), "상품조회 완료");
+        ProductDetailDto product = productService.findProduct(id);
+        return new ResponseDto<ProductDetailDto>(HttpStatus.OK.value(), product);
     }
 
 }

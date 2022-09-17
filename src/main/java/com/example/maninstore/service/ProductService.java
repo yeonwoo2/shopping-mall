@@ -1,9 +1,10 @@
 package com.example.maninstore.service;
 
 import com.example.maninstore.domain.Product;
-import com.example.maninstore.domain.ProductDetail;
+import com.example.maninstore.domain.ProductOption;
 import com.example.maninstore.dto.product.ProductDetailDto;
-import com.example.maninstore.repository.ProductDetailRepository;
+import com.example.maninstore.dto.product.ProductOptionDto;
+import com.example.maninstore.repository.ProductOptionRepository;
 import com.example.maninstore.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,17 +20,16 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductDetailRepository productDetailRepository;
+    private final ProductOptionRepository productOptionRepository;
 
     public ProductDetailDto findProduct(Long productId){
         Optional<Product> findProduct = productRepository.findById(productId);
         Product product = findProduct.orElseThrow();
 
-        List<ProductDetail> productDetailByProductId = productDetailRepository.findProductDetailByProductId(productId);
+        List<ProductOption> productOptions = productOptionRepository.findProductOptionByProductId(productId);
+        List<ProductOptionDto> productOptionDto = productOptions.stream().map(p -> new ProductOptionDto(p.getSize(), p.getColor(), p.getStockQuantity())).collect(Collectors.toList());
 
-
-        return null;
-//        return new ProductDetailDto(product.getName(), product.getPrice(), product.getDiscount(), product.getDescription(), )
+        return new ProductDetailDto(product.getName(), product.getPrice(), product.getDiscount(), product.getDescription(), productOptionDto);
     }
 
 }

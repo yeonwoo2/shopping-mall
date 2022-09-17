@@ -1,14 +1,13 @@
 package com.example.maninstore.domain;
 
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductOption {
 
@@ -21,4 +20,7 @@ public class ProductOption {
     private String color;
 
     private int stockQuantity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
 }

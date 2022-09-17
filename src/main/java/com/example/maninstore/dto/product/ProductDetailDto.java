@@ -14,14 +14,14 @@ public class ProductDetailDto {
     private int price;
     private int discountRate;
     private String summary;
-    private List<ProductOptionDto> productDetail;
+    private List<ProductOptionDto> productOption;
 
     @QueryProjection
-    public ProductDetailDto(String name, int price, int discountRate, String summary, List<ProductOptionDto> productDetail) {
+    public ProductDetailDto(String name, int price, int discountRate, String summary, List<ProductOptionDto> productOption) {
         this.name = name;
         this.price = price;
         this.discountRate = discountRate;
         this.summary = summary;
-        this.productDetail = productDetail;
+        this.productOption = productOption;
     }
 }
