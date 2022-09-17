@@ -1,4 +1,4 @@
-package com.example.maninstore.controller.dto.product;
+package com.example.maninstore.dto.product;
 
 import lombok.Data;
 

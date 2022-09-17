@@ -1,6 +1,6 @@
 package com.example.maninstore.handler;
 
-import com.example.maninstore.controller.dto.ResponseDto;
+import com.example.maninstore.dto.ResponseDto;
 import com.example.maninstore.handler.ex.CustomValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

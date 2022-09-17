@@ -1,4 +1,4 @@
-package com.example.maninstore.controller.dto.auth;
+package com.example.maninstore.dto.auth;
 
 import lombok.Data;
 

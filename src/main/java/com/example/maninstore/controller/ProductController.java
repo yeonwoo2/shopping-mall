@@ -1,6 +1,6 @@
 package com.example.maninstore.controller;
 
-import com.example.maninstore.controller.dto.ResponseDto;
+import com.example.maninstore.dto.ResponseDto;
 import com.example.maninstore.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

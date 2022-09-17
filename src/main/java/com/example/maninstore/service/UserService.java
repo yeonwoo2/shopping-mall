@@ -2,7 +2,7 @@ package com.example.maninstore.service;
 
 import com.example.maninstore.domain.User;
 import com.example.maninstore.domain.enums.Authority;
-import com.example.maninstore.controller.dto.auth.JoinRequestDto;
+import com.example.maninstore.dto.auth.JoinRequestDto;
 import com.example.maninstore.handler.ex.CustomValidationException;
 import com.example.maninstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

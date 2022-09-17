@@ -1,6 +1,6 @@
 package com.example.maninstore.controller;
 
-import com.example.maninstore.controller.dto.auth.JoinRequestDto;
+import com.example.maninstore.dto.auth.JoinRequestDto;
 import com.example.maninstore.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
