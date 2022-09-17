@@ -1,6 +1,7 @@
 package com.example.maninstore.config.auth;
 
 import com.example.maninstore.domain.User;
+import com.example.maninstore.handler.ex.CustomValidationException;
 import com.example.maninstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,9 +23,9 @@ public class PrincipalDetailsService implements UserDetailsService {
     // username이 DB에 있는지만 확인해주면 됨.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("PrincipalDetailService : 진입");
+        System.out.println("PrincipalDetailService : access");
         Optional<User> findUser = userRepository.findByUsername(username);
-        User user = findUser.orElseThrow(() -> new IllegalArgumentException("no search user"));
+        User user = findUser.orElseThrow(() -> new CustomValidationException("로그인 정보를 다시 확인해주세요"));
 
         return new PrincipalDetails(user); //시큐리티의 세션에 유저 정보가 저장이 됨
     }

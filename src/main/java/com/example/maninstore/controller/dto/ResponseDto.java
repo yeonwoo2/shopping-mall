@@ -1,4 +1,4 @@
-package com.example.maninstore.dto;
+package com.example.maninstore.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

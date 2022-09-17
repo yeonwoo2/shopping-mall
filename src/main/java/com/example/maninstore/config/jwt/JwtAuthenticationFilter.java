@@ -4,8 +4,11 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.maninstore.config.auth.PrincipalDetails;
 import com.example.maninstore.domain.User;
+import com.example.maninstore.handler.ex.CustomValidationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 //스프링 시큐리티에서 UsernamePasswordAuthenticationFilter 가 있음.
@@ -26,6 +30,7 @@ import java.util.Date;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     // /login 요청을 하면 로그인 시도를 위해서 실행되는 함수
     @Override
@@ -35,8 +40,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 1.username ,password 받아서
 
         try {
-            ObjectMapper om = new ObjectMapper();
-            User user = om.readValue(request.getInputStream(), User.class);
+            User user = OBJECT_MAPPER.readValue(request.getInputStream(), User.class);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 
@@ -51,9 +55,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             return authentication;
         } catch (IOException e) {
 
-
         }
-        // 4.JWT토큰을 만들어서 응답해주면 됨.
+        // 4.JWT 토큰을 만들어서 응답해주면 됨.
         return null;
     }
 
@@ -74,5 +77,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
         System.out.println("jwtToken ===" + jwtToken);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        System.out.println("===========fail Autentication===============");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setCharacterEncoding("UTF-8");
+        try (PrintWriter writer = response.getWriter()){
+            writer.write("아이디와 비밀번호가 유효하지 않습니다.");
+            writer.flush();
+        }
     }
 }

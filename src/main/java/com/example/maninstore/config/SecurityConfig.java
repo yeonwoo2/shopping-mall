@@ -18,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    // WebSecurityConfigurerAdapter는 Filter chain을 구성하는 Configuration클래스
 
     private final CorsConfig corsConfig;
     private final UserRepository userRepository;
@@ -38,7 +37,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .apply(new MyCustomDsl()) // 커스텀 필터 등록
                 .and()
-                .authorizeRequests(authroize -> authroize.antMatchers("/api/v1/user/**")
+                .authorizeRequests(authroize -> authroize.antMatchers("/api/user/**")
                         .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                         .antMatchers("/api/v1/admin/**")
                         .access("hasRole('ROLE_ADMIN')")
