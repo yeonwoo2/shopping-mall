@@ -16,7 +16,6 @@ public class ProductDetailDto {
     private String summary;
     private List<ProductOptionDto> productOption;
 
-    @QueryProjection
     public ProductDetailDto(String name, int price, int discountRate, String summary, List<ProductOptionDto> productOption) {
         this.name = name;
         this.price = price;
