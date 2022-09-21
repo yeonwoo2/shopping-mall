@@ -21,4 +21,7 @@ public class BuyController {
         ProductOrderDto productOrderDto = productService.purchaseProduct(productOrderCondition);
         return productOrderDto;
     }
+
+//    @PostMapping("/purchase-product")
+//    public void purchaseProduct(@RequestBody )
 }
