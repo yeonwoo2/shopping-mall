@@ -6,8 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
-@ToString
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductOption {
 

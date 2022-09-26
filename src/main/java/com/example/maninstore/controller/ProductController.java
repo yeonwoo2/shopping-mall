@@ -17,7 +17,6 @@ public class ProductController {
 
     @GetMapping("/product")
     public ResponseDto<ProductDetailDto> productDetail(@RequestParam Long id){
-
         ProductDetailDto product = productService.findProduct(id);
         return new ResponseDto<ProductDetailDto>(HttpStatus.OK.value(), product);
     }

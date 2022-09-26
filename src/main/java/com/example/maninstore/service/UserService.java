@@ -2,6 +2,7 @@ package com.example.maninstore.service;
 
 import com.example.maninstore.domain.User;
 import com.example.maninstore.domain.enums.Authority;
+import com.example.maninstore.dto.auth.CheckUsernameDto;
 import com.example.maninstore.dto.auth.JoinRequestDto;
 import com.example.maninstore.handler.ex.CustomValidationException;
 import com.example.maninstore.repository.UserRepository;
@@ -33,6 +34,16 @@ public class UserService {
                                         joinRequestDto.getPhone(),
                                         Enum.valueOf(Authority.class, joinRequestDto.getRole()));
             userRepository.save(user);
+        }else{
+            throw new CustomValidationException("사용중인 아이디 입니다.");
+        }
+    }
+
+    public String validJoin(CheckUsernameDto checkUsernameDto){
+        Optional<User> findUser = userRepository.findByUsername(checkUsernameDto.getUsername());
+
+        if(findUser.isEmpty()){
+            return "사용가능한 아이디 입니다.";
         }else{
             throw new CustomValidationException("사용중인 아이디 입니다.");
         }
